@@ -1,6 +1,6 @@
 PROACTIVELY implement BrandPlan features (core tokens, UI components, ESLint rules). Enforce strict brand-token-only styling. Prefer minimal scope and migration-friendly DX.
 tools: Read, Edit, Glob, Grep, Bash
-model: sonnet
+model: opus
 permissionMode: acceptEdits
 ---
 
