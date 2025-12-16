@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-brand-accent: var(--brand-color-brand-accent);
+  --color-brand-brand-primary: var(--brand-color-brand-primary);
+  --color-brand-surface-0: var(--brand-color-surface-0);
+  --color-brand-surface-1: var(--brand-color-surface-1);
+  --color-brand-text-primary: var(--brand-color-text-primary);
+  --color-brand-text-secondary: var(--brand-color-text-secondary);
+  --radius-brand-lg: var(--brand-radius-lg);
+  --radius-brand-md: var(--brand-radius-md);
+  --radius-brand-sm: var(--brand-radius-sm);
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  color-scheme: dark;
+  --brand-space-2: 0.5rem;
+  --brand-space-3: 0.75rem;
+  --brand-space-4: 1rem;
+  --brand-space-6: 1.5rem;
+  --brand-space-8: 2rem;
+  --brand-radius-lg: 1rem;
+  --brand-radius-md: 0.5rem;
+  --brand-radius-sm: 0.25rem;
+  --brand-color-brand-accent: #8b5cf6;
+  --brand-color-brand-primary: #3b82f6;
+  --brand-color-surface-0: #0b0f17;
+  --brand-color-surface-1: #111827;
+  --brand-color-text-primary: #f9fafb;
+  --brand-color-text-secondary: #9ca3af;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --brand-color-brand-accent: #7c3aed;
+  --brand-color-brand-primary: #2563eb;
+  --brand-color-surface-0: #ffffff;
+  --brand-color-surface-1: #f9fafb;
+  --brand-color-text-primary: #111827;
+  --brand-color-text-secondary: #6b7280;
+}
