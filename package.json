@@ -2,6 +2,11 @@
   "name": "brandplan",
   "private": true,
   "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ibrahim-bayer/brandplan.git"
+  },
   "scripts": {
     "build": "pnpm -r build",
     "test": "pnpm -r test",
