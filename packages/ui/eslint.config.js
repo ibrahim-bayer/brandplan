@@ -13,6 +13,7 @@ export default tseslint.config(
     },
     rules: {
       '@brandplan/brand-classnames-only': 'error',
+      '@brandplan/brand-margin-policy': 'error',
     },
   },
   {
