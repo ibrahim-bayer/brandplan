@@ -49,10 +49,10 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
   ) => {
     // Padding classes (uses brand spacing via CSS variables)
     const paddingClass = {
-      none: 'bp-card--p-none',
-      sm: 'bp-card--p-sm',
-      md: 'bp-card--p-md',
-      lg: 'bp-card--p-lg',
+      none: 'p-brand-0',
+      sm: 'p-brand-2',
+      md: 'p-brand-4',
+      lg: 'p-brand-6',
     }[padding];
 
     // Radius classes (uses brand radius tokens)

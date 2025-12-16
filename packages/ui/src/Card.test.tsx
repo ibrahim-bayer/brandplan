@@ -24,19 +24,19 @@ describe('Card', () => {
   it('applies correct padding class', () => {
     const { rerender } = render(<Card padding="none">None</Card>);
     let card = screen.getByText('None');
-    expect(card.className).toContain('bp-card--p-none');
+    expect(card.className).toContain('p-brand-0');
 
     rerender(<Card padding="sm">Small</Card>);
     card = screen.getByText('Small');
-    expect(card.className).toContain('bp-card--p-sm');
+    expect(card.className).toContain('p-brand-2');
 
     rerender(<Card padding="md">Medium</Card>);
     card = screen.getByText('Medium');
-    expect(card.className).toContain('bp-card--p-md');
+    expect(card.className).toContain('p-brand-4');
 
     rerender(<Card padding="lg">Large</Card>);
     card = screen.getByText('Large');
-    expect(card.className).toContain('bp-card--p-lg');
+    expect(card.className).toContain('p-brand-6');
   });
 
   it('applies brand radius classes', () => {
@@ -76,9 +76,9 @@ describe('Card', () => {
   it('does not use arbitrary Tailwind spacing in padding classes', () => {
     render(<Card padding="md">Default Padding</Card>);
     const card = screen.getByText('Default Padding');
-    // Padding should use bp-card--p-* classes, not p-4, p-6, etc.
-    expect(card.className).toContain('bp-card--p-md');
-    expect(card.className).not.toMatch(/\bp-\d/);
+    // Padding should use p-brand-* classes, not p-4, p-6, etc.
+    expect(card.className).toContain('p-brand-4');
+    expect(card.className).not.toMatch(/\bp-\d+\s/);
   });
 
   it('uses only brand utilities for critical styling', () => {

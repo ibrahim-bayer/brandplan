@@ -39,15 +39,21 @@ describe('Button', () => {
   it('applies size classes using brand spacing', () => {
     const { rerender } = render(<Button size="sm">Small</Button>);
     let button = screen.getByRole('button');
-    expect(button.className).toContain('bp-button--size-sm');
+    expect(button.className).toContain('px-brand-2');
+    expect(button.className).toContain('py-brand-1');
+    expect(button.className).toContain('text-brand-sm');
 
     rerender(<Button size="md">Medium</Button>);
     button = screen.getByRole('button');
-    expect(button.className).toContain('bp-button--size-md');
+    expect(button.className).toContain('px-brand-4');
+    expect(button.className).toContain('py-brand-2');
+    expect(button.className).toContain('text-brand-md');
 
     rerender(<Button size="lg">Large</Button>);
     button = screen.getByRole('button');
-    expect(button.className).toContain('bp-button--size-lg');
+    expect(button.className).toContain('px-brand-6');
+    expect(button.className).toContain('py-brand-4');
+    expect(button.className).toContain('text-brand-lg');
   });
 
   it('applies brand radius classes', () => {

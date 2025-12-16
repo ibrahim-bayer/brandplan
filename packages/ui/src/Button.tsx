@@ -57,10 +57,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     // Size classes (uses brand spacing via CSS variables)
-    const sizeClass = {
-      sm: 'bp-button--size-sm',
-      md: 'bp-button--size-md',
-      lg: 'bp-button--size-lg',
+    const sizeClasses = {
+      sm: ['px-brand-2', 'py-brand-1', 'text-brand-sm'],
+      md: ['px-brand-4', 'py-brand-2', 'text-brand-md'],
+      lg: ['px-brand-6', 'py-brand-4', 'text-brand-lg'],
     }[size];
 
     // Radius classes (uses brand radius tokens)
@@ -85,7 +85,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       'focus-visible:outline-offset-2',
       'focus-visible:outline-brand-brand-primary',
       // Size
-      sizeClass,
+      ...sizeClasses,
       // Radius
       radiusClass,
       // Variant styles
