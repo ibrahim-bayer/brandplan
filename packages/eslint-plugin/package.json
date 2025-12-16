@@ -1,0 +1,43 @@
+{
+  "name": "@brandplan/eslint-plugin",
+  "version": "0.1.0",
+  "description": "ESLint plugin to enforce BrandPlan design token usage and prevent visual drift",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ibrahim-bayer/brandplan.git",
+    "directory": "packages/eslint-plugin"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src"
+  },
+  "peerDependencies": {
+    "eslint": "^8.0.0 || ^9.0.0"
+  },
+  "devDependencies": {
+    "@types/eslint": "^9.6.1",
+    "eslint": "^9.17.0"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "brandplan",
+    "design-tokens",
+    "tailwindcss"
+  ]
+}
