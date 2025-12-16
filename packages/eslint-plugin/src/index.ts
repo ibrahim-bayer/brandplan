@@ -1,4 +1,5 @@
 import brandClassnamesOnly from './rules/brand-classnames-only.js';
+import brandMarginPolicy from './rules/brand-margin-policy.js';
 
 const plugin = {
   meta: {
@@ -7,12 +8,14 @@ const plugin = {
   },
   rules: {
     'brand-classnames-only': brandClassnamesOnly,
+    'brand-margin-policy': brandMarginPolicy,
   },
   configs: {
     recommended: {
       plugins: ['@brandplan'],
       rules: {
         '@brandplan/brand-classnames-only': 'error',
+        '@brandplan/brand-margin-policy': 'error',
       },
     },
   },
