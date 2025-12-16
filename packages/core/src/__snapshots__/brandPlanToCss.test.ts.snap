@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`brandPlanToCss > generates deterministic output (snapshot) 1`] = `
+"@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --brand-space-2: 0.5rem;
+  --brand-space-4: 1rem;
+  --brand-space-6: 1.5rem;
+  --brand-radius-lg: 1rem;
+  --brand-radius-md: 0.5rem;
+  --brand-radius-sm: 0.25rem;
+  --brand-color-surface-0: #0b0f17;
+  --brand-color-surface-1: #111827;
+  --brand-color-text-primary: #ffffff;
+  --brand-color-text-secondary: #9ca3af;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --brand-color-surface-0: #ffffff;
+  --brand-color-surface-1: #f1f5f9;
+  --brand-color-text-primary: #0f172a;
+  --brand-color-text-secondary: #64748b;
+}
+"
+`;
