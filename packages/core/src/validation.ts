@@ -16,6 +16,12 @@ function validateCssLength(value: string, path: string): void {
       `${path}: expected a non-empty string, got ${typeof value}`
     );
   }
+  // Explicitly reject any whitespace in length values
+  if (/\s/.test(value)) {
+    throw new BrandPlanValidationError(
+      `${path}: "${value}" contains whitespace (must be a valid CSS length like 0.5rem, not "0.5 rem")`
+    );
+  }
   if (!CSS_LENGTH_REGEX.test(value)) {
     throw new BrandPlanValidationError(
       `${path}: "${value}" is not a valid CSS length (expected 0 or a value like 1rem, 8px, 50%, etc.)`

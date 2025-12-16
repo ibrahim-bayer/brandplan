@@ -101,6 +101,26 @@ describe('defineBrandPlan', () => {
     expect(() => defineBrandPlan(plan)).not.toThrow();
   });
 
+  it('throws on space value with whitespace', () => {
+    const plan = {
+      ...validPlan,
+      space: { ...validPlan.space, invalid: '0.5 rem' },
+    };
+    expect(() => defineBrandPlan(plan)).toThrow(BrandPlanValidationError);
+    expect(() => defineBrandPlan(plan)).toThrow('contains whitespace');
+    expect(() => defineBrandPlan(plan)).toThrow('space.invalid');
+  });
+
+  it('throws on radius value with whitespace', () => {
+    const plan = {
+      ...validPlan,
+      radius: { ...validPlan.radius, invalid: '1 rem' },
+    };
+    expect(() => defineBrandPlan(plan)).toThrow(BrandPlanValidationError);
+    expect(() => defineBrandPlan(plan)).toThrow('contains whitespace');
+    expect(() => defineBrandPlan(plan)).toThrow('radius.invalid');
+  });
+
   it('throws on invalid radius value', () => {
     const plan = {
       ...validPlan,
