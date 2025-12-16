@@ -31,6 +31,46 @@ describe('brandPlanToCss', () => {
     expect(css).toMatch(/^@import "tailwindcss";/);
   });
 
+  it('generates @theme block at top-level', () => {
+    const css = brandPlanToCss(samplePlan);
+    expect(css).toContain('@theme {');
+
+    // Verify @theme appears after @import but before other blocks
+    const importIndex = css.indexOf('@import');
+    const themeIndex = css.indexOf('@theme');
+    const rootIndex = css.indexOf(':root');
+
+    expect(importIndex).toBeLessThan(themeIndex);
+    expect(themeIndex).toBeLessThan(rootIndex);
+  });
+
+  it('maps color tokens to theme variables in @theme block', () => {
+    const css = brandPlanToCss(samplePlan);
+    expect(css).toContain('--color-brand-surface-0: var(--brand-color-surface-0);');
+    expect(css).toContain('--color-brand-surface-1: var(--brand-color-surface-1);');
+    expect(css).toContain('--color-brand-text-primary: var(--brand-color-text-primary);');
+    expect(css).toContain('--color-brand-text-secondary: var(--brand-color-text-secondary);');
+  });
+
+  it('maps radius tokens to theme variables in @theme block', () => {
+    const css = brandPlanToCss(samplePlan);
+    expect(css).toContain('--radius-brand-sm: var(--brand-radius-sm);');
+    expect(css).toContain('--radius-brand-md: var(--brand-radius-md);');
+    expect(css).toContain('--radius-brand-lg: var(--brand-radius-lg);');
+  });
+
+  it('does not generate spacing theme variables', () => {
+    const css = brandPlanToCss(samplePlan);
+    const themeBlock = css.split('@theme {')[1]?.split('}')[0];
+    expect(themeBlock).not.toContain('--spacing-');
+    expect(themeBlock).not.toContain('--space-brand-');
+  });
+
+  it('generates @custom-variant dark for data-theme support', () => {
+    const css = brandPlanToCss(samplePlan);
+    expect(css).toContain('@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));');
+  });
+
   it('generates :root block with dark values', () => {
     const css = brandPlanToCss(samplePlan);
     expect(css).toContain(':root {');
@@ -95,11 +135,15 @@ describe('brandPlanToCss', () => {
     });
     const css = brandPlanToCss(minimalPlan);
     expect(css).toContain('@import "tailwindcss";');
+    expect(css).toContain('@theme {');
+    expect(css).toContain('@custom-variant dark');
     expect(css).toContain(':root {');
     expect(css).toContain('[data-theme="light"] {');
     expect(css).toContain('--brand-space-4: 1rem;');
     expect(css).toContain('--brand-radius-md: 0.5rem;');
     expect(css).toContain('--brand-color-text-primary: #fff;');
     expect(css).toContain('--brand-color-text-primary: #000;');
+    expect(css).toContain('--color-brand-text-primary: var(--brand-color-text-primary);');
+    expect(css).toContain('--radius-brand-md: var(--brand-radius-md);');
   });
 });

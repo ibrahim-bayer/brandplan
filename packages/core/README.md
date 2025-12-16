@@ -59,6 +59,20 @@ writeFileSync('theme.css', css);
 ```css
 @import "tailwindcss";
 
+@theme {
+  --color-brand-brand-accent: var(--brand-color-brand-accent);
+  --color-brand-brand-primary: var(--brand-color-brand-primary);
+  --color-brand-surface-0: var(--brand-color-surface-0);
+  --color-brand-surface-1: var(--brand-color-surface-1);
+  --color-brand-text-primary: var(--brand-color-text-primary);
+  --color-brand-text-secondary: var(--brand-color-text-secondary);
+  --radius-brand-lg: var(--brand-radius-lg);
+  --radius-brand-md: var(--brand-radius-md);
+  --radius-brand-sm: var(--brand-radius-sm);
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
   color-scheme: dark;
   --brand-space-2: 0.5rem;
@@ -86,6 +100,37 @@ writeFileSync('theme.css', css);
   --brand-color-text-secondary: #64748b;
 }
 ```
+
+The `@theme` block maps brand tokens to Tailwind v4 theme variables, enabling utilities like `bg-brand-surface-0` and `rounded-brand-md`. The `@custom-variant` enables `dark:` prefix support for `data-theme="dark"` elements.
+
+## Usage in HTML
+
+Control theme mode by setting the `data-theme` attribute on your root element:
+
+```html
+<!-- Dark mode (default) -->
+<html>
+  <body class="bg-brand-surface-0 text-brand-text-primary">
+    <button class="bg-brand-brand-primary rounded-brand-md">
+      Click me
+    </button>
+  </body>
+</html>
+
+<!-- Light mode -->
+<html data-theme="light">
+  <body class="bg-brand-surface-0 text-brand-text-primary">
+    <button class="bg-brand-brand-primary rounded-brand-md dark:bg-brand-brand-accent">
+      Click me
+    </button>
+  </body>
+</html>
+```
+
+Available utility classes:
+- **Colors**: `bg-brand-{group}-{token}`, `text-brand-{group}-{token}`, `border-brand-{group}-{token}`
+- **Radius**: `rounded-brand-{token}`
+- **Dark variant**: Use `dark:` prefix for `data-theme="dark"` specific styles
 
 ## Token Schema
 
@@ -179,8 +224,10 @@ defineBrandPlan({
 
 ## Design Principles
 
-- **Dark mode first**: `:root` contains dark values, light mode is an override
+- **Dark mode first**: `:root` contains dark values, light mode is an override via `data-theme="light"`
 - **Brand-prefixed variables**: All CSS variables use `--brand-*` prefix
+- **Tailwind v4 theme integration**: `@theme` block maps brand tokens to Tailwind utilities
+- **Data-theme variant support**: `@custom-variant dark` enables `dark:` prefix for theme-aware styling
 - **Tailwind v4 compatible**: Output includes `@import "tailwindcss"` for drop-in usage
 - **Deterministic output**: Stable, sorted variable ordering for consistent diffs
 - **Zero runtime dependencies**: Lightweight and fast

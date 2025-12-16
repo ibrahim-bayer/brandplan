@@ -1,9 +1,16 @@
 {
   "name": "@brandplan/core",
   "version": "0.1.0",
+  "description": "Strict token schema and CSS theme generator for BrandPlan - a branding layer on top of Tailwind CSS v4",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ibrahim-bayer/brandplan.git",
+    "directory": "packages/core"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -18,5 +25,12 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint src"
-  }
+  },
+  "keywords": [
+    "tailwindcss",
+    "design-tokens",
+    "brand",
+    "theme",
+    "css-variables"
+  ]
 }

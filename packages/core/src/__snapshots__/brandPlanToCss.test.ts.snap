@@ -3,6 +3,18 @@
 exports[`brandPlanToCss > generates deterministic output (snapshot) 1`] = `
 "@import "tailwindcss";
 
+@theme {
+  --color-brand-surface-0: var(--brand-color-surface-0);
+  --color-brand-surface-1: var(--brand-color-surface-1);
+  --color-brand-text-primary: var(--brand-color-text-primary);
+  --color-brand-text-secondary: var(--brand-color-text-secondary);
+  --radius-brand-lg: var(--brand-radius-lg);
+  --radius-brand-md: var(--brand-radius-md);
+  --radius-brand-sm: var(--brand-radius-sm);
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
   color-scheme: dark;
   --brand-space-2: 0.5rem;

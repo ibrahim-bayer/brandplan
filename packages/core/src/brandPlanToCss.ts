@@ -8,6 +8,8 @@ interface CssVariable {
 
 export function brandPlanToCss(plan: BrandPlan): string {
   const variables: CssVariable[] = [];
+  const themeColorMappings: string[] = [];
+  const themeRadiusMappings: string[] = [];
 
   const spaceKeys = Object.keys(plan.space).sort();
   for (const key of spaceKeys) {
@@ -23,6 +25,7 @@ export function brandPlanToCss(plan: BrandPlan): string {
       name: `--brand-radius-${key}`,
       darkValue: plan.radius[key],
     });
+    themeRadiusMappings.push(`  --radius-brand-${key}: var(--brand-radius-${key});`);
   }
 
   const colorGroups = Object.keys(plan.color).sort();
@@ -35,6 +38,7 @@ export function brandPlanToCss(plan: BrandPlan): string {
         darkValue: dark,
         lightValue: light,
       });
+      themeColorMappings.push(`  --color-brand-${group}-${tokenKey}: var(--brand-color-${group}-${tokenKey});`);
     }
   }
 
@@ -47,7 +51,13 @@ export function brandPlanToCss(plan: BrandPlan): string {
     .map((v) => `  ${v.name}: ${v.lightValue};`)
     .join('\n');
 
+  const themeDeclarations = [...themeColorMappings, ...themeRadiusMappings].join('\n');
+
   let css = '@import "tailwindcss";\n\n';
+  css += '@theme {\n';
+  css += themeDeclarations + '\n';
+  css += '}\n\n';
+  css += '@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));\n\n';
   css += ':root {\n';
   css += '  color-scheme: dark;\n';
   css += rootDeclarations + '\n';
