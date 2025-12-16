@@ -1,0 +1,53 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Read",
+      "Edit(.):*",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git restore:*)",
+      "Bash(git reset:*)",
+      "Bash(git rm:*)",
+      "Bash(pnpm:*)",
+      "Bash(npm:*)",
+      "Bash(node:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(git tag:*)",
+      "Bash(npm publish:*)",
+      "Bash(curl:*)",
+      "Bash(pnpm publish:*)"
+    ],
+    "deny": [
+      "WebFetch",
+      "Bash(wget:*)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Read(./**/*secret*)",
+      "Read(./secrets/**)",
+      "Edit(./.env)",
+      "Edit(./.env.*)",
+      "Edit(./secrets/**)"
+    ]
+  },
+  "attribution": {
+    "commit": "Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@claude.ai>",
+    "pr": "Generated with Claude Code"
+  },
+  "alwaysThinkingEnabled": true,
+  "env": {
+    "BASH_MAX_OUTPUT_LENGTH": "12000",
+    "BASH_DEFAULT_TIMEOUT_MS": "60000"
+  }
+}
