@@ -30,6 +30,14 @@ describe('init', () => {
     expect(config).toContain('space:');
     expect(config).toContain('radius:');
     expect(config).toContain('color:');
+
+    // Also check that CSS was generated
+    const cssPath = join(testDir, 'brandplan.css');
+    expect(existsSync(cssPath)).toBe(true);
+
+    const css = readFileSync(cssPath, 'utf-8');
+    expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="light"]');
   });
 
   it('does not overwrite existing config', async () => {
@@ -46,6 +54,10 @@ describe('init', () => {
     // Config should not be overwritten
     const config = readFileSync(configPath, 'utf-8');
     expect(config).toBe(existingContent);
+
+    // CSS should NOT be generated when config already exists
+    const cssPath = join(testDir, 'brandplan.css');
+    expect(existsSync(cssPath)).toBe(false);
   });
 
   it('creates CSS file in app/ directory when it exists', async () => {
@@ -54,11 +66,15 @@ describe('init', () => {
 
     await init(testDir);
 
-    const cssPath = join(appDir, 'brandplan.css');
-    // CSS generation might fail without deps, so we just check that init doesn't crash
-    // The config file should always be created
     const configPath = join(testDir, 'brandplan.config.ts');
     expect(existsSync(configPath)).toBe(true);
+
+    const cssPath = join(appDir, 'brandplan.css');
+    expect(existsSync(cssPath)).toBe(true);
+
+    const css = readFileSync(cssPath, 'utf-8');
+    expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="light"]');
   });
 
   it('creates CSS file in src/ directory when app/ does not exist', async () => {
@@ -69,6 +85,13 @@ describe('init', () => {
 
     const configPath = join(testDir, 'brandplan.config.ts');
     expect(existsSync(configPath)).toBe(true);
+
+    const cssPath = join(srcDir, 'brandplan.css');
+    expect(existsSync(cssPath)).toBe(true);
+
+    const css = readFileSync(cssPath, 'utf-8');
+    expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="light"]');
   });
 
   it('creates CSS file in root when neither app/ nor src/ exist', async () => {
@@ -76,5 +99,12 @@ describe('init', () => {
 
     const configPath = join(testDir, 'brandplan.config.ts');
     expect(existsSync(configPath)).toBe(true);
+
+    const cssPath = join(testDir, 'brandplan.css');
+    expect(existsSync(cssPath)).toBe(true);
+
+    const css = readFileSync(cssPath, 'utf-8');
+    expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="light"]');
   });
 });

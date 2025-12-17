@@ -1,6 +1,7 @@
 import { writeFileSync, existsSync } from 'fs';
-import { dirname } from 'path';
+import { dirname, relative } from 'path';
 import { mkdirSync } from 'fs';
+import { createJiti } from 'jiti';
 import { getConfigPath, getCssOutputPath } from './utils.js';
 import { configTemplate, getCssHeader } from './templates.js';
 import { brandPlanToCss } from '@brandplan/core';
@@ -9,39 +10,56 @@ export async function init(cwd: string = process.cwd()): Promise<void> {
   const configPath = getConfigPath(cwd);
   const cssPath = getCssOutputPath(cwd);
 
+  let configCreated = false;
+
   // Create config file if it doesn't exist
   if (existsSync(configPath)) {
     console.log(`⚠️  ${configPath} already exists, skipping...`);
   } else {
     writeFileSync(configPath, configTemplate);
     console.log(`✓ Created ${configPath}`);
+    configCreated = true;
   }
 
-  // Generate initial CSS file
-  try {
-    // Import the config using tsx runtime
-    const configModule = await import(configPath);
-    const plan = configModule.default;
-
-    // Generate CSS
-    const css = brandPlanToCss(plan);
-    const output = getCssHeader() + css;
-
-    // Ensure directory exists
-    const cssDir = dirname(cssPath);
-    if (!existsSync(cssDir)) {
-      mkdirSync(cssDir, { recursive: true });
-    }
-
-    // Write CSS file
-    writeFileSync(cssPath, output);
-    console.log(`✓ Generated ${cssPath}`);
-  } catch (error) {
-    console.error('Failed to generate initial CSS:', error);
-    console.log(`\nRun 'npx brandplan build' after installing dependencies.`);
+  // Only generate CSS if we created a new config file
+  // If config already exists, user should run `brandplan build` manually
+  if (!configCreated) {
+    console.log(`\nRun 'npx brandplan build' to generate CSS from your existing config.`);
+    return;
   }
 
-  // Print next steps
+  // Generate initial CSS file using jiti
+  const jiti = createJiti(cwd, {
+    interopDefault: true,
+    moduleCache: false,
+  });
+
+  const plan = jiti(configPath);
+
+  if (!plan) {
+    throw new Error('Config must export a default BrandPlan object');
+  }
+
+  // Generate CSS
+  const css = brandPlanToCss(plan);
+  const output = getCssHeader() + css;
+
+  // Ensure directory exists
+  const cssDir = dirname(cssPath);
+  if (!existsSync(cssDir)) {
+    mkdirSync(cssDir, { recursive: true });
+  }
+
+  // Write CSS file
+  writeFileSync(cssPath, output);
+  console.log(`✓ Generated ${cssPath}`);
+
+  // Print next steps with actual CSS path
+  const relativeCssPath = relative(cwd, cssPath);
+  const cssImportPath = relativeCssPath.startsWith('.')
+    ? relativeCssPath
+    : `./${relativeCssPath}`;
+
   console.log('\n📝 Next steps:\n');
   console.log('1. Install dependencies:');
   console.log('   npm install @brandplan/core @brandplan/ui');
@@ -49,7 +67,7 @@ export async function init(cwd: string = process.cwd()): Promise<void> {
   console.log('   pnpm add @brandplan/core @brandplan/ui\n');
   console.log('2. Import CSS in your Next.js layout (app/layout.tsx):');
   console.log(`   import '@brandplan/ui/styles.css';`);
-  console.log(`   import './brandplan.css';\n`);
+  console.log(`   import '${cssImportPath}';\n`);
   console.log('3. Use BrandPlan components:');
   console.log(`   import { Button, Card } from '@brandplan/ui';\n`);
   console.log('4. Rebuild CSS after config changes:');

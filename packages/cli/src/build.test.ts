@@ -54,6 +54,8 @@ export default defineBrandPlan({
     expect(css).toContain('@import "tailwindcss"');
     expect(css).toContain('--brand-space-2: 0.5rem');
     expect(css).toContain('--brand-radius-sm: 0.25rem');
+    expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="light"]');
   });
 
   it('respects --out option', async () => {
@@ -82,6 +84,8 @@ export default defineBrandPlan({
 
     const css = readFileSync(customOut, 'utf-8');
     expect(css).toContain('BrandPlan Generated CSS');
+    expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="light"]');
   });
 
   it('creates output directory if it does not exist', async () => {
@@ -111,5 +115,9 @@ export default defineBrandPlan({
     // Check that CSS was generated
     const cssPath = join(appDir, 'brandplan.css');
     expect(existsSync(cssPath)).toBe(true);
+
+    const css = readFileSync(cssPath, 'utf-8');
+    expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="light"]');
   });
 });
