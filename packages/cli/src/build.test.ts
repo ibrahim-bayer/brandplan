@@ -55,6 +55,7 @@ export default defineBrandPlan({
     expect(css).toContain('--brand-space-2: 0.5rem');
     expect(css).toContain('--brand-radius-sm: 0.25rem');
     expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="dark"]');
     expect(css).toContain('[data-theme="light"]');
   });
 
@@ -85,6 +86,7 @@ export default defineBrandPlan({
     const css = readFileSync(customOut, 'utf-8');
     expect(css).toContain('BrandPlan Generated CSS');
     expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="dark"]');
     expect(css).toContain('[data-theme="light"]');
   });
 
@@ -118,6 +120,7 @@ export default defineBrandPlan({
 
     const css = readFileSync(cssPath, 'utf-8');
     expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="dark"]');
     expect(css).toContain('[data-theme="light"]');
   });
 });

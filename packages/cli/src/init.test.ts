@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { mkdirSync, rmSync, existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { init } from './init.js';
@@ -37,6 +37,7 @@ describe('init', () => {
 
     const css = readFileSync(cssPath, 'utf-8');
     expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="dark"]');
     expect(css).toContain('[data-theme="light"]');
   });
 
@@ -74,6 +75,7 @@ describe('init', () => {
 
     const css = readFileSync(cssPath, 'utf-8');
     expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="dark"]');
     expect(css).toContain('[data-theme="light"]');
   });
 
@@ -91,6 +93,7 @@ describe('init', () => {
 
     const css = readFileSync(cssPath, 'utf-8');
     expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="dark"]');
     expect(css).toContain('[data-theme="light"]');
   });
 
@@ -105,6 +108,45 @@ describe('init', () => {
 
     const css = readFileSync(cssPath, 'utf-8');
     expect(css).toContain(':root {');
+    expect(css).toContain('[data-theme="dark"]');
     expect(css).toContain('[data-theme="light"]');
+  });
+
+  it('prints correct import path for app/ directory', async () => {
+    const appDir = join(testDir, 'app');
+    mkdirSync(appDir);
+
+    const consoleSpy = vi.spyOn(console, 'log');
+    await init(testDir);
+
+    const output = consoleSpy.mock.calls.map(call => call.join(' ')).join('\n');
+    expect(output).toContain("import './brandplan.css';");
+    expect(output).not.toContain("import './app/brandplan.css';");
+
+    consoleSpy.mockRestore();
+  });
+
+  it('prints correct import path for src/ directory', async () => {
+    const srcDir = join(testDir, 'src');
+    mkdirSync(srcDir);
+
+    const consoleSpy = vi.spyOn(console, 'log');
+    await init(testDir);
+
+    const output = consoleSpy.mock.calls.map(call => call.join(' ')).join('\n');
+    expect(output).toContain("import './brandplan.css';");
+    expect(output).not.toContain("import './src/brandplan.css';");
+
+    consoleSpy.mockRestore();
+  });
+
+  it('prints correct import path for root directory', async () => {
+    const consoleSpy = vi.spyOn(console, 'log');
+    await init(testDir);
+
+    const output = consoleSpy.mock.calls.map(call => call.join(' ')).join('\n');
+    expect(output).toContain("import '../brandplan.css';");
+
+    consoleSpy.mockRestore();
   });
 });

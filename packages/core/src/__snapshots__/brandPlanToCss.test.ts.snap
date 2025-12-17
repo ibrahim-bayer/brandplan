@@ -29,6 +29,10 @@ exports[`brandPlanToCss > generates deterministic output (snapshot) 1`] = `
   --brand-color-text-secondary: #9ca3af;
 }
 
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
 [data-theme="light"] {
   color-scheme: light;
   --brand-color-surface-0: #ffffff;

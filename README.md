@@ -183,10 +183,11 @@ export function ThemeToggle() {
 ```
 
 **How it works:**
-- `:root` contains dark mode values by default
-- `[data-theme="light"]` overrides with light mode values
+- `:root` contains dark mode values by default with `color-scheme: dark`
+- `[data-theme="dark"]` explicitly sets `color-scheme: dark` (hardening rule)
+- `[data-theme="light"]` overrides with light mode values and `color-scheme: light`
 - `@custom-variant dark` enables Tailwind's `dark:` modifier when `data-theme="dark"`
-- Always set `data-theme` explicitly (never leave it undefined) for consistent behavior
+- Always set `data-theme` explicitly to `"dark"` or `"light"` for consistent behavior
 
 ## ESLint Enforcement
 

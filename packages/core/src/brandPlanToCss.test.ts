@@ -82,6 +82,12 @@ describe('brandPlanToCss', () => {
     expect(css).toContain('--brand-color-text-primary: #ffffff;');
   });
 
+  it('generates [data-theme="dark"] block with color-scheme hardening', () => {
+    const css = brandPlanToCss(samplePlan);
+    expect(css).toContain('[data-theme="dark"] {');
+    expect(css).toMatch(/\[data-theme="dark"\]\s*\{\s*color-scheme:\s*dark;/);
+  });
+
   it('generates [data-theme="light"] block with light values', () => {
     const css = brandPlanToCss(samplePlan);
     expect(css).toContain('[data-theme="light"] {');

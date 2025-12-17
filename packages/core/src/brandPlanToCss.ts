@@ -62,6 +62,9 @@ export function brandPlanToCss(plan: BrandPlan): string {
   css += '  color-scheme: dark;\n';
   css += rootDeclarations + '\n';
   css += '}\n\n';
+  css += '[data-theme="dark"] {\n';
+  css += '  color-scheme: dark;\n';
+  css += '}\n\n';
   css += '[data-theme="light"] {\n';
   css += '  color-scheme: light;\n';
   css += lightDeclarations + '\n';
