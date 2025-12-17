@@ -1,5 +1,6 @@
 import type { Rule } from 'eslint';
 import type { Node, Literal, TemplateLiteral, Expression, CallExpression, ArrayExpression } from 'estree';
+import picomatch from 'picomatch';
 
 interface JSXAttribute extends Node {
   type: 'JSXAttribute';
@@ -24,6 +25,7 @@ interface JSXElement extends Node {
 
 interface RuleOptions {
   allowSection?: boolean;
+  ignorePaths?: string[];
 }
 
 const MARGIN_REGEX = /\b(m|mx|my|mt|mr|mb|ml)-brand-\S+/g;
@@ -47,6 +49,13 @@ const rule: Rule.RuleModule = {
             type: 'boolean',
             default: false,
           },
+          ignorePaths: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+            default: [],
+          },
         },
         additionalProperties: false,
       },
@@ -56,6 +65,30 @@ const rule: Rule.RuleModule = {
   create(context: Rule.RuleContext): Rule.RuleListener {
     const options: RuleOptions = context.options[0] || {};
     const allowSection = options.allowSection ?? false;
+    const ignorePaths = options.ignorePaths || [];
+
+    // Check if current file should be ignored
+    if (ignorePaths.length > 0) {
+      const filename = context.getFilename();
+
+      // Skip if filename is unknown or <input>
+      if (!filename || filename === '<input>') {
+        // Treat unknown filenames as not ignored
+      } else {
+        // Normalize path separators to forward slashes
+        const normalizedFilename = filename.replace(/\\/g, '/');
+
+        // Check if any pattern matches
+        const isIgnored = ignorePaths.some((pattern) => {
+          const matcher = picomatch(pattern);
+          return matcher(normalizedFilename);
+        });
+
+        if (isIgnored) {
+          return {}; // Skip all checks for this file
+        }
+      }
+    }
 
     const allowedTags = ['main', 'header', 'footer'];
     if (allowSection) {

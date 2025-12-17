@@ -1,5 +1,6 @@
 import type { Rule } from 'eslint';
 import type { Node, Literal, TemplateLiteral } from 'estree';
+import picomatch from 'picomatch';
 
 interface JSXAttribute extends Node {
   type: 'JSXAttribute';
@@ -8,6 +9,10 @@ interface JSXAttribute extends Node {
     name: string;
   };
   value: Literal | { type: 'JSXExpressionContainer'; expression: Node } | null;
+}
+
+interface RuleOptions {
+  ignorePaths?: string[];
 }
 
 const rule: Rule.RuleModule = {
@@ -22,10 +27,49 @@ const rule: Rule.RuleModule = {
       forbiddenClass:
         'Non-brand utility "{{className}}" is not allowed. Use brand-prefixed utilities (e.g., {{suggestion}}) or layout utilities only.',
     },
-    schema: [],
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          ignorePaths: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+            default: [],
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
   },
 
   create(context: Rule.RuleContext): Rule.RuleListener {
+    const options: RuleOptions = context.options[0] || {};
+    const ignorePaths = options.ignorePaths || [];
+
+    // Check if current file should be ignored
+    if (ignorePaths.length > 0) {
+      const filename = context.getFilename();
+
+      // Skip if filename is unknown or <input>
+      if (!filename || filename === '<input>') {
+        // Treat unknown filenames as not ignored
+      } else {
+        // Normalize path separators to forward slashes
+        const normalizedFilename = filename.replace(/\\/g, '/');
+
+        // Check if any pattern matches
+        const isIgnored = ignorePaths.some((pattern) => {
+          const matcher = picomatch(pattern);
+          return matcher(normalizedFilename);
+        });
+
+        if (isIgnored) {
+          return {}; // Skip all checks for this file
+        }
+      }
+    }
     // Layout utilities that are allowed (structural, not brand-critical)
     const allowedPrefixes = [
       // Display & Layout

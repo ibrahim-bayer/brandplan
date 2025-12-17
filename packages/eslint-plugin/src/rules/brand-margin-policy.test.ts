@@ -166,4 +166,50 @@ describe('brand-margin-policy', () => {
       ],
     });
   });
+
+  it('should skip files matching ignorePaths patterns', () => {
+    ruleTester.run('brand-margin-policy with ignorePaths', rule, {
+      valid: [
+        // Violations should be ignored for matching paths
+        {
+          code: '<div className="m-brand-4" />',
+          options: [{ ignorePaths: ['**/components/ui/**'] }],
+          filename: '/project/components/ui/button.tsx',
+        },
+        {
+          code: '<Card className="mt-brand-2 mb-brand-4" />',
+          options: [{ ignorePaths: ['src/components/ui/**'] }],
+          filename: '/project/src/components/ui/card.tsx',
+        },
+        {
+          code: '<div className={cn("flex", "m-brand-4")} />',
+          options: [{ ignorePaths: ['**/*.shadcn.tsx'] }],
+          filename: '/project/src/button.shadcn.tsx',
+        },
+      ],
+
+      invalid: [
+        // Violations should NOT be ignored for non-matching paths
+        {
+          code: '<div className="m-brand-4" />',
+          options: [{ ignorePaths: ['**/components/ui/**'] }],
+          filename: '/project/components/Button.tsx',
+          errors: [{ messageId: 'marginOnNonSemanticElement' }],
+        },
+        {
+          code: '<Card className="mt-brand-2" />',
+          options: [{ ignorePaths: ['src/components/ui/**'] }],
+          filename: '/project/src/pages/index.tsx',
+          errors: [{ messageId: 'marginOnNonSemanticElement' }],
+        },
+        // Empty ignorePaths should not skip any files
+        {
+          code: '<div className="m-brand-4" />',
+          options: [{ ignorePaths: [] }],
+          filename: '/project/components/ui/button.tsx',
+          errors: [{ messageId: 'marginOnNonSemanticElement' }],
+        },
+      ],
+    });
+  });
 });

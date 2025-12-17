@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@types/eslint": "^9.6.1",
+    "@types/picomatch": "^4.0.2",
     "eslint": "^9.17.0"
   },
   "keywords": [
@@ -43,5 +44,8 @@
     "brandplan",
     "design-tokens",
     "tailwindcss"
-  ]
+  ],
+  "dependencies": {
+    "picomatch": "^4.0.3"
+  }
 }

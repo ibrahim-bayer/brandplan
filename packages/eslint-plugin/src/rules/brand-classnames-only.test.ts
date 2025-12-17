@@ -151,4 +151,50 @@ describe('brand-classnames-only', () => {
       ],
     });
   });
+
+  it('should skip files matching ignorePaths patterns', () => {
+    ruleTester.run('brand-classnames-only with ignorePaths', rule, {
+      valid: [
+        // Violations should be ignored for matching paths
+        {
+          code: '<div className="p-4 rounded-lg bg-white" />',
+          options: [{ ignorePaths: ['**/components/ui/**'] }],
+          filename: '/project/components/ui/button.tsx',
+        },
+        {
+          code: '<div className="m-2 bg-slate-100" />',
+          options: [{ ignorePaths: ['src/components/ui/**'] }],
+          filename: '/project/src/components/ui/card.tsx',
+        },
+        {
+          code: '<div className="p-4" />',
+          options: [{ ignorePaths: ['**/*.ignore.tsx'] }],
+          filename: '/project/src/test.ignore.tsx',
+        },
+      ],
+
+      invalid: [
+        // Violations should NOT be ignored for non-matching paths
+        {
+          code: '<div className="p-4" />',
+          options: [{ ignorePaths: ['**/components/ui/**'] }],
+          filename: '/project/components/Button.tsx',
+          errors: [{ messageId: 'forbiddenClass' }],
+        },
+        {
+          code: '<div className="rounded-lg" />',
+          options: [{ ignorePaths: ['src/components/ui/**'] }],
+          filename: '/project/src/pages/index.tsx',
+          errors: [{ messageId: 'forbiddenClass' }],
+        },
+        // Empty ignorePaths should not skip any files
+        {
+          code: '<div className="p-4" />',
+          options: [{ ignorePaths: [] }],
+          filename: '/project/components/ui/button.tsx',
+          errors: [{ messageId: 'forbiddenClass' }],
+        },
+      ],
+    });
+  });
 });

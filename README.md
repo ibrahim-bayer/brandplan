@@ -249,6 +249,78 @@ export default [
 ];
 ```
 
+## Using BrandPlan with shadcn/ui (Optional Path Exclusion)
+
+By default, BrandPlan ESLint rules are **strict everywhere**. If you're using shadcn/ui or other third-party component libraries that don't follow BrandPlan conventions, you can optionally exclude those paths from enforcement.
+
+### Why Exclude Paths?
+
+shadcn/ui components are generated into your project and often use standard Tailwind utilities (`p-4`, `rounded-lg`, `bg-white`, etc.) instead of brand-prefixed utilities. Rather than rewriting every shadcn component, you can exclude the shadcn folder from BrandPlan rules.
+
+**Important:** Excluded paths are **not enforced** by BrandPlan. Only exclude vendor/third-party code you don't control.
+
+### Configuration
+
+Use the `ignorePaths` option to exclude specific paths from both rules:
+
+```javascript
+// eslint.config.mjs
+import brandplan from '@brandplan/eslint-plugin';
+
+export default [
+  {
+    files: ['**/*.tsx', '**/*.ts'],
+    plugins: {
+      '@brandplan': brandplan,
+    },
+    rules: {
+      '@brandplan/brand-classnames-only': [
+        'error',
+        {
+          ignorePaths: ['**/components/ui/**'], // Exclude shadcn/ui
+        },
+      ],
+      '@brandplan/brand-margin-policy': [
+        'error',
+        {
+          ignorePaths: ['**/components/ui/**'], // Exclude shadcn/ui
+        },
+      ],
+    },
+  },
+];
+```
+
+### Recommended Patterns
+
+Common patterns for exclusion:
+
+- `**/components/ui/**` - shadcn/ui default location
+- `src/components/ui/**` - if shadcn generates into `src/`
+- `**/lib/shadcn/**` - alternative shadcn location
+- `**/*.vendor.tsx` - vendor component files
+
+### Pattern Matching
+
+The `ignorePaths` option uses [picomatch](https://github.com/micromatch/picomatch) for glob pattern matching:
+
+- `**` matches any number of directories
+- `*` matches any characters within a directory name
+- Paths are normalized to forward slashes automatically
+
+### Example: Mixed Enforcement
+
+```javascript
+// Your custom components - ENFORCED
+// src/components/Button.tsx ✅ Must use brand-* utilities
+
+// shadcn components - EXCLUDED
+// src/components/ui/button.tsx ⏭️ Skipped (uses standard Tailwind)
+// src/components/ui/card.tsx ⏭️ Skipped (uses standard Tailwind)
+```
+
+**Best practice:** Keep your ignorePaths list minimal. Only exclude what you truly can't control.
+
 ## Packages
 
 - **`@brandplan/core`** - Token schema validation and CSS generation
