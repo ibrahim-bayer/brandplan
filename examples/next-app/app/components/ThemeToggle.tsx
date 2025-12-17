@@ -7,20 +7,22 @@ export function ThemeToggle() {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
-    // Initialize theme from document
-    const currentTheme = document.documentElement.dataset.theme as 'dark' | 'light' | undefined;
-    setTheme(currentTheme || 'dark');
+    // Initialize theme from document or localStorage
+    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.dataset.theme = savedTheme;
+    } else {
+      // Set default dark mode explicitly
+      document.documentElement.dataset.theme = 'dark';
+    }
   }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
-
-    if (newTheme === 'dark') {
-      delete document.documentElement.dataset.theme;
-    } else {
-      document.documentElement.dataset.theme = 'light';
-    }
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.dataset.theme = newTheme;
   };
 
   return (

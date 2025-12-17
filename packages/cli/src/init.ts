@@ -1,5 +1,5 @@
 import { writeFileSync, existsSync } from 'fs';
-import { dirname, relative } from 'path';
+import { dirname, relative, basename, join } from 'path';
 import { mkdirSync } from 'fs';
 import { createJiti } from 'jiti';
 import { getConfigPath, getCssOutputPath } from './utils.js';
@@ -55,10 +55,23 @@ export async function init(cwd: string = process.cwd()): Promise<void> {
   console.log(`✓ Generated ${cssPath}`);
 
   // Print next steps with actual CSS path
-  const relativeCssPath = relative(cwd, cssPath);
-  const cssImportPath = relativeCssPath.startsWith('.')
-    ? relativeCssPath
-    : `./${relativeCssPath}`;
+  // Calculate import path relative to where layout.tsx would be
+  const cssDirName = basename(cssDir);
+
+  let cssImportPath: string;
+  if (cssDirName === 'app' || cssDirName === 'src') {
+    // CSS is in app/ or src/, so import is relative to same directory
+    cssImportPath = `./${basename(cssPath)}`;
+  } else {
+    // CSS is in root, calculate path from app/ directory
+    const appDir = join(cwd, 'app');
+    const srcDir = join(cwd, 'src');
+    const layoutDir = existsSync(appDir) ? appDir : (existsSync(srcDir) ? srcDir : appDir);
+    cssImportPath = relative(layoutDir, cssPath);
+    if (!cssImportPath.startsWith('.')) {
+      cssImportPath = `./${cssImportPath}`;
+    }
+  }
 
   console.log('\n📝 Next steps:\n');
   console.log('1. Install dependencies:');

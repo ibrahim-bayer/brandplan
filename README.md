@@ -146,7 +146,7 @@ npx brandplan build
 
 ## Theme Toggle
 
-BrandPlan uses the `data-theme` attribute for theme switching:
+BrandPlan uses the `data-theme` attribute for theme switching. Both dark and light modes require the attribute to be set explicitly for Tailwind's `dark:` variant to work correctly.
 
 ```tsx
 'use client';
@@ -160,9 +160,10 @@ export function ThemeToggle() {
     const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
     if (savedTheme) {
       setTheme(savedTheme);
-      if (savedTheme === 'light') {
-        document.documentElement.dataset.theme = 'light';
-      }
+      document.documentElement.dataset.theme = savedTheme;
+    } else {
+      // Set default dark mode
+      document.documentElement.dataset.theme = 'dark';
     }
   }, []);
 
@@ -170,12 +171,7 @@ export function ThemeToggle() {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-
-    if (newTheme === 'dark') {
-      delete document.documentElement.dataset.theme;
-    } else {
-      document.documentElement.dataset.theme = 'light';
-    }
+    document.documentElement.dataset.theme = newTheme;
   };
 
   return (
@@ -185,6 +181,12 @@ export function ThemeToggle() {
   );
 }
 ```
+
+**How it works:**
+- `:root` contains dark mode values by default
+- `[data-theme="light"]` overrides with light mode values
+- `@custom-variant dark` enables Tailwind's `dark:` modifier when `data-theme="dark"`
+- Always set `data-theme` explicitly (never leave it undefined) for consistent behavior
 
 ## ESLint Enforcement
 
