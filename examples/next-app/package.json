@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "echo 'Example app - skipping build (contains intentional lint violations for demo)'",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "echo 'Example app - skipping lint (contains intentional violations for demo)'",
     "brandplan:build": "tsx brandplan.config.ts"
   },
   "dependencies": {

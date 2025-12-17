@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "BrandPlan CLI for scaffolding and building brand token CSS",
   "type": "module",
+  "license": "MIT",
   "bin": {
     "brandplan": "./dist/cli.js"
   },
@@ -15,11 +16,28 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ibrahim-bayer/brandplan.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/ibrahim-bayer/brandplan#readme",
+  "bugs": {
+    "url": "https://github.com/ibrahim-bayer/brandplan/issues"
+  },
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit"
   },
+  "keywords": [
+    "brandplan",
+    "cli",
+    "design-tokens",
+    "tailwindcss",
+    "css"
+  ],
   "dependencies": {
     "@brandplan/core": "workspace:*",
     "commander": "^12.1.0",

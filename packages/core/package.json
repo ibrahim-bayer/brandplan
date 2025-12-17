@@ -11,6 +11,10 @@
     "url": "https://github.com/ibrahim-bayer/brandplan.git",
     "directory": "packages/core"
   },
+  "homepage": "https://github.com/ibrahim-bayer/brandplan#readme",
+  "bugs": {
+    "url": "https://github.com/ibrahim-bayer/brandplan/issues"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

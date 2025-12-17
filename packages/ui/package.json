@@ -6,10 +6,17 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
+  "sideEffects": [
+    "*.css"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/ibrahim-bayer/brandplan.git",
     "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/ibrahim-bayer/brandplan#readme",
+  "bugs": {
+    "url": "https://github.com/ibrahim-bayer/brandplan/issues"
   },
   "exports": {
     ".": {

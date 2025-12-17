@@ -1,5 +1,9 @@
 # BrandPlan
 
+[![CI](https://github.com/ibrahim-bayer/brandplan/actions/workflows/ci.yml/badge.svg)](https://github.com/ibrahim-bayer/brandplan/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/brandplan.svg)](https://www.npmjs.com/package/brandplan)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 BrandPlan is a strict branding layer on top of Tailwind that replaces freedom with consistency.
 
 ## What is BrandPlan?
@@ -11,6 +15,27 @@ BrandPlan eliminates visual drift by enforcing brand tokens through technical co
 - **Dark-first theming**: `:root` contains dark values, `[data-theme="light"]` overrides
 - **Semantic margin policy**: Margins restricted to layout elements
 - **Tailwind v4 compatible**: Uses CSS-first `@theme` block
+
+## What's Enforced
+
+BrandPlan **requires** brand-prefixed utilities for these design-critical properties:
+
+- **Spacing**: `p-brand-*`, `m-brand-*`, `gap-brand-*`, `space-brand-*`
+- **Radius**: `rounded-brand-*`
+- **Colors**: `bg-brand-*`, `text-brand-*`, `border-brand-*`, `ring-brand-*`
+- **Shadows**: `shadow-brand-*`
+
+## What's Forbidden
+
+- ❌ Arbitrary values: `p-[12px]`, `bg-[#ff0000]`
+- ❌ Non-brand utilities for design properties: `p-4`, `bg-blue-500`, `rounded-lg`
+- ❌ Inline styles for margin, padding, color, radius, shadow
+- ❌ Margins on non-layout elements (unless using `m-brand-*`)
+
+**Utilities NOT affected** (use Tailwind freely):
+- Layout: `flex`, `grid`, `block`, `hidden`, `w-*`, `h-*`, etc.
+- Typography: `font-*`, `text-sm`, `leading-*`, etc.
+- Effects: `opacity-*`, `blur-*`, `transition-*`, etc.
 
 ## Quick Start
 
@@ -144,9 +169,14 @@ After editing, regenerate CSS:
 npx brandplan build
 ```
 
-## Theme Toggle
+## Dark/Light Theme Switching
 
-BrandPlan uses the `data-theme` attribute for theme switching. Both dark and light modes require the attribute to be set explicitly for Tailwind's `dark:` variant to work correctly.
+BrandPlan uses explicit `data-theme` attribute for theme switching:
+
+- **Dark mode** (default): `data-theme="dark"`
+- **Light mode**: `data-theme="light"`
+- Always set explicitly - never leave undefined
+- Tailwind's `dark:` variant triggers when `data-theme="dark"`
 
 ```tsx
 'use client';
@@ -229,6 +259,10 @@ export default [
 ## Examples
 
 See `examples/next-app` for a complete Next.js App Router integration.
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup and guidelines.
 
 ## License
 
