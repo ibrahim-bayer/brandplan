@@ -35,8 +35,10 @@ BrandPlan **requires** brand-prefixed utilities for these design-critical proper
 
 - **Spacing**: `p-brand-*`, `m-brand-*`, `gap-brand-*`, `space-brand-*`
 - **Radius**: `rounded-brand-*`
-- **Colors**: `bg-brand-*`, `text-brand-*`, `border-brand-*`, `ring-brand-*`
+- **Colors**: `bg-brand-*`, `text-brand-*` (for colors, not sizes), `border-brand-*`, `ring-brand-*`
 - **Shadows**: `shadow-brand-*`
+
+Note: Text **size** utilities (`text-sm`, `text-xl`, etc.) are allowed because they're structural, not brand-critical. Only text **color** utilities require `text-brand-*`.
 
 ## What's Forbidden
 
@@ -47,9 +49,10 @@ BrandPlan **requires** brand-prefixed utilities for these design-critical proper
 
 **Utilities NOT affected** (use Tailwind freely):
 
-- Layout: `flex`, `grid`, `block`, `hidden`, `w-*`, `h-*`, etc.
-- Typography: `font-*`, `text-sm`, `leading-*`, etc.
-- Effects: `opacity-*`, `blur-*`, `transition-*`, etc.
+- Layout: `flex`, `grid`, `block`, `hidden`, `w-*`, `h-*`, positioning, overflow, etc.
+- Typography (size/weight/style): `text-xs`, `text-sm`, `text-lg`, `text-xl`, `text-2xl`, `text-3xl`, `font-*`, `leading-*`, `tracking-*`, etc.
+- Typography (color): **MUST use** `text-brand-*` (blocked: `text-white`, `text-blue-500`, etc.)
+- Effects: `opacity-*`, `blur-*`, `transition-*`, `transform`, etc.
 
 ## Problems BrandPlan solves
 
@@ -107,6 +110,8 @@ Yes. BrandPlan enforces:
 If you want freedom, use Tailwind directly.
 
 ## Quick Start
+
+**Requires Node 20+ (recommended 20.9+).**
 
 ### 1. Install BrandPlan
 

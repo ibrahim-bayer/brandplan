@@ -50,8 +50,14 @@ describe('brand-classnames-only', () => {
         { code: '<div className={`flex ${isActive ? "bg-brand-brand-primary" : "bg-brand-surface-0"}`} />' },
 
         // Text size utilities (allowed as they're structural)
+        { code: '<div className="text-xs" />' },
         { code: '<div className="text-sm" />' },
+        { code: '<div className="text-base" />' },
         { code: '<div className="text-lg" />' },
+        { code: '<div className="text-xl" />' },
+        { code: '<div className="text-2xl" />' },
+        { code: '<div className="text-3xl" />' },
+        { code: '<div className="text-4xl" />' },
         { code: '<div className="text-brand-md" />' },
       ],
 

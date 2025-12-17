@@ -187,6 +187,12 @@ const rule: Rule.RuleModule = {
           continue;
         }
 
+        // Allow text-size utilities (structural, not brand-critical)
+        // text-xs, text-sm, text-base, text-lg, text-xl, text-2xl, text-3xl, etc.
+        if (/^text-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl)$/.test(className)) {
+          continue;
+        }
+
         // Check if it's a brand-critical utility without "brand" in it
         const isBrandCritical = brandCriticalPrefixes.some((prefix) =>
           className.startsWith(prefix)
