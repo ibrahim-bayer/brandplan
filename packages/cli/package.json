@@ -4,6 +4,9 @@
   "description": "BrandPlan CLI for scaffolding and building brand token CSS",
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "bin": {
     "brandplan": "./dist/cli.js"
   },
