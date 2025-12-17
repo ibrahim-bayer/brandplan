@@ -71,10 +71,8 @@ const rule: Rule.RuleModule = {
     if (ignorePaths.length > 0) {
       const filename = context.getFilename();
 
-      // Skip if filename is unknown or <input>
-      if (!filename || filename === '<input>') {
-        // Treat unknown filenames as not ignored
-      } else {
+      // Treat empty or <input> filenames as unknown - do NOT ignore them
+      if (filename && filename !== '<input>') {
         // Normalize path separators to forward slashes
         const normalizedFilename = filename.replace(/\\/g, '/');
 

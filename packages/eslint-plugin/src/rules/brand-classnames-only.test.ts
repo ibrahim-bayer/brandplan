@@ -194,6 +194,16 @@ describe('brand-classnames-only', () => {
           filename: '/project/components/ui/button.tsx',
           errors: [{ messageId: 'forbiddenClass' }],
         },
+        // <input> filename should NOT be ignored even with ignorePaths
+        {
+          code: '<div className="p-4 bg-white" />',
+          options: [{ ignorePaths: ['**/*'] }],
+          filename: '<input>',
+          errors: [
+            { messageId: 'forbiddenClass' },
+            { messageId: 'forbiddenClass' },
+          ],
+        },
       ],
     });
   });

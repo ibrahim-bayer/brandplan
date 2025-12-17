@@ -209,6 +209,13 @@ describe('brand-margin-policy', () => {
           filename: '/project/components/ui/button.tsx',
           errors: [{ messageId: 'marginOnNonSemanticElement' }],
         },
+        // <input> filename should NOT be ignored even with ignorePaths
+        {
+          code: '<div className="m-brand-4 mt-brand-2" />',
+          options: [{ ignorePaths: ['**/*'] }],
+          filename: '<input>',
+          errors: [{ messageId: 'marginOnNonSemanticElement' }],
+        },
       ],
     });
   });
