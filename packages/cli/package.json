@@ -1,6 +1,6 @@
 {
   "name": "brandplan",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "BrandPlan CLI for scaffolding and building brand token CSS",
   "type": "module",
   "license": "MIT",
