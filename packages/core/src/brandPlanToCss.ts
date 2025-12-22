@@ -10,6 +10,7 @@ export function brandPlanToCss(plan: BrandPlan): string {
   const variables: CssVariable[] = [];
   const themeColorMappings: string[] = [];
   const themeRadiusMappings: string[] = [];
+  const themeSpaceMappings: string[] = [];
 
   const spaceKeys = Object.keys(plan.space).sort();
   for (const key of spaceKeys) {
@@ -17,6 +18,7 @@ export function brandPlanToCss(plan: BrandPlan): string {
       name: `--brand-space-${key}`,
       darkValue: plan.space[key],
     });
+    themeSpaceMappings.push(`  --space-brand-${key}: var(--brand-space-${key});`);
   }
 
   const radiusKeys = Object.keys(plan.radius).sort();
@@ -51,7 +53,7 @@ export function brandPlanToCss(plan: BrandPlan): string {
     .map((v) => `  ${v.name}: ${v.lightValue};`)
     .join('\n');
 
-  const themeDeclarations = [...themeColorMappings, ...themeRadiusMappings].join('\n');
+  const themeDeclarations = [...themeColorMappings, ...themeRadiusMappings, ...themeSpaceMappings].join('\n');
 
   let css = '@import "tailwindcss";\n\n';
   css += '@theme {\n';

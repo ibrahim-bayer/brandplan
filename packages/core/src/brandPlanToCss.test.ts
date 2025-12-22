@@ -59,11 +59,12 @@ describe('brandPlanToCss', () => {
     expect(css).toContain('--radius-brand-lg: var(--brand-radius-lg);');
   });
 
-  it('does not generate spacing theme variables', () => {
+  it('generates spacing theme variables in @theme block', () => {
     const css = brandPlanToCss(samplePlan);
     const themeBlock = css.split('@theme {')[1]?.split('}')[0];
-    expect(themeBlock).not.toContain('--spacing-');
-    expect(themeBlock).not.toContain('--space-brand-');
+    expect(themeBlock).toContain('--space-brand-2: var(--brand-space-2);');
+    expect(themeBlock).toContain('--space-brand-4: var(--brand-space-4);');
+    expect(themeBlock).toContain('--space-brand-6: var(--brand-space-6);');
   });
 
   it('generates @custom-variant dark for data-theme support', () => {

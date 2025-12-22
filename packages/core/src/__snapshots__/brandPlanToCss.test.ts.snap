@@ -11,6 +11,9 @@ exports[`brandPlanToCss > generates deterministic output (snapshot) 1`] = `
   --radius-brand-lg: var(--brand-radius-lg);
   --radius-brand-md: var(--brand-radius-md);
   --radius-brand-sm: var(--brand-radius-sm);
+  --space-brand-2: var(--brand-space-2);
+  --space-brand-4: var(--brand-space-4);
+  --space-brand-6: var(--brand-space-6);
 }
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
