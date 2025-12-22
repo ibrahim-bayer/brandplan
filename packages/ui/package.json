@@ -1,6 +1,6 @@
 {
   "name": "@brandplan/ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Minimal React UI primitives for BrandPlan - Button and Card components using brand tokens",
   "type": "module",
   "main": "./dist/index.js",
@@ -42,7 +42,7 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@brandplan/eslint-plugin": "workspace:*",
+    "@brandplan/eslint-plugin": "0.1.2",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@types/react": "^18.3.18",

@@ -1,6 +1,6 @@
 {
   "name": "@brandplan/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Strict token schema and CSS theme generator for BrandPlan - a branding layer on top of Tailwind CSS v4",
   "type": "module",
   "main": "./dist/index.js",

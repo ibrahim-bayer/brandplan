@@ -67,6 +67,39 @@ describe('brandPlanToCss', () => {
     expect(themeBlock).toContain('--space-brand-6: var(--brand-space-6);');
   });
 
+  it('generates spacing theme variables for all configured space tokens', () => {
+    const customPlan = defineBrandPlan({
+      space: {
+        '1': '0.25rem',
+        '2': '0.5rem',
+        '4': '1rem',
+        '8': '2rem',
+        '12': '3rem',
+        '16': '4rem',
+        '24': '6rem'
+      },
+      radius: { md: '0.5rem' },
+      color: { brand: { primary: { dark: '#fff', light: '#000' } } }
+    });
+
+    const css = brandPlanToCss(customPlan);
+    const themeBlock = css.split('@theme {')[1]?.split('}')[0];
+
+    // Verify all spacing tokens are mapped in @theme
+    expect(themeBlock).toContain('--space-brand-1: var(--brand-space-1);');
+    expect(themeBlock).toContain('--space-brand-2: var(--brand-space-2);');
+    expect(themeBlock).toContain('--space-brand-4: var(--brand-space-4);');
+    expect(themeBlock).toContain('--space-brand-8: var(--brand-space-8);');
+    expect(themeBlock).toContain('--space-brand-12: var(--brand-space-12);');
+    expect(themeBlock).toContain('--space-brand-16: var(--brand-space-16);');
+    expect(themeBlock).toContain('--space-brand-24: var(--brand-space-24);');
+
+    // Verify variables are also defined in :root
+    expect(css).toContain('--brand-space-1: 0.25rem;');
+    expect(css).toContain('--brand-space-8: 2rem;');
+    expect(css).toContain('--brand-space-24: 6rem;');
+  });
+
   it('generates @custom-variant dark for data-theme support', () => {
     const css = brandPlanToCss(samplePlan);
     expect(css).toContain('@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));');
