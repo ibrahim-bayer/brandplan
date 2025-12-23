@@ -79,8 +79,8 @@ importers:
   packages/cli:
     dependencies:
       '@brandplan/core':
-        specifier: workspace:*
-        version: link:../core
+        specifier: 0.1.2
+        version: 0.1.2
       commander:
         specifier: ^12.1.0
         version: 12.1.0
@@ -122,8 +122,8 @@ importers:
   packages/ui:
     devDependencies:
       '@brandplan/eslint-plugin':
-        specifier: workspace:*
-        version: link:../eslint-plugin
+        specifier: 0.1.2
+        version: 0.1.2(eslint@9.39.2(jiti@2.6.1))
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.9.1
@@ -165,6 +165,16 @@ packages:
   '@babel/runtime@7.28.4':
     resolution: {integrity: sha512-Q/N6JNWvIvPnLDvjlE1OUBLPQHH6l3CltCEsHIujp45zQUSSh8K+gHnaEX45yAT1nyngnINhvWtzN+Nb9D8RAQ==}
     engines: {node: '>=6.9.0'}
+
+  '@brandplan/core@0.1.2':
+    resolution: {integrity: sha512-zNR/UKpdsXrD/5C60qUDg+nJqTxq8+PJR81w71sOdCrJgaxaW9iXVQz8nUi/WJMerjsmkE/ha4onoEHgIQL3SA==}
+    engines: {node: '>=20.9.0'}
+
+  '@brandplan/eslint-plugin@0.1.2':
+    resolution: {integrity: sha512-ilv9p6wzYcUiB5jC+QQrqA1Q/T5nS9d1qPO/Qzwiadu6509ZYvZII+1IGQcBdJNAy9OevISPmx/0bkD/oOV/lg==}
+    engines: {node: '>=20.9.0'}
+    peerDependencies:
+      eslint: ^8.0.0 || ^9.0.0
 
   '@csstools/color-helpers@5.1.0':
     resolution: {integrity: sha512-S11EXWJyy0Mz5SYvRmY8nJYTFFd1LCNV+7cXyAgQtOOuzb4EsgfqDufL+9esx72/eLhsRdGZwaldu/h+E4t4BA==}
@@ -2746,6 +2756,13 @@ snapshots:
   '@babel/helper-validator-identifier@7.28.5': {}
 
   '@babel/runtime@7.28.4': {}
+
+  '@brandplan/core@0.1.2': {}
+
+  '@brandplan/eslint-plugin@0.1.2(eslint@9.39.2(jiti@2.6.1))':
+    dependencies:
+      eslint: 9.39.2(jiti@2.6.1)
+      picomatch: 4.0.3
 
   '@csstools/color-helpers@5.1.0': {}
 
