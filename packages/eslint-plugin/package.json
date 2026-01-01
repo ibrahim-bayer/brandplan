@@ -43,10 +43,21 @@
   },
   "keywords": [
     "eslint",
+    "eslint-plugin",
     "eslintplugin",
-    "brandplan",
+    "tailwindcss",
+    "tailwind-css",
     "design-tokens",
-    "tailwindcss"
+    "design-system",
+    "brand-consistency",
+    "brand-enforcement",
+    "code-quality",
+    "linter",
+    "css-enforcement",
+    "design-system-enforcement",
+    "brand-tokens",
+    "strict-design-system",
+    "brandplan"
   ],
   "dependencies": {
     "picomatch": "^4.0.3"

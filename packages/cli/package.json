@@ -35,11 +35,19 @@
     "lint": "tsc --noEmit"
   },
   "keywords": [
-    "brandplan",
     "cli",
-    "design-tokens",
+    "command-line",
     "tailwindcss",
-    "css"
+    "tailwind-css",
+    "tailwind-v4",
+    "design-tokens",
+    "design-system",
+    "brand-guidelines",
+    "css-generator",
+    "theme-generator",
+    "build-tool",
+    "scaffolding",
+    "brandplan"
   ],
   "dependencies": {
     "@brandplan/core": "0.1.2",

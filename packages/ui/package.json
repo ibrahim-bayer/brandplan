@@ -52,11 +52,23 @@
     "react-dom": "^18.3.1"
   },
   "keywords": [
-    "react",
-    "ui",
-    "components",
-    "brandplan",
+    "tailwindcss",
+    "tailwind-css",
+    "tailwind-v4",
     "design-tokens",
-    "tailwindcss"
+    "design-system",
+    "brand-guidelines",
+    "brand-consistency",
+    "react",
+    "react-components",
+    "ui-components",
+    "button",
+    "card",
+    "css-variables",
+    "design-system-enforcement",
+    "component-library",
+    "strict-design-system",
+    "brand-tokens",
+    "brandplan"
   ]
 }

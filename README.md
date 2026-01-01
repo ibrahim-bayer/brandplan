@@ -12,6 +12,18 @@ Tailwind gives you freedom. That freedom causes brand inconsistency.
 
 BrandPlan turns your brand tokens into an enforceable system. It is NOT a UI kit, NOT a replacement for Tailwind, and NOT a design system. It is a token engine with ESLint enforcement.
 
+### Quick Comparison
+
+| Feature | BrandPlan | Vanilla Tailwind | Chakra UI | shadcn/ui |
+|---------|-----------|------------------|-----------|-----------|
+| **Enforcement** | ✅ Build-time (ESLint) | ❌ None | ⚠️ Runtime only | ❌ None |
+| **Tailwind Compatible** | ✅ Yes (v4) | ✅ Native | ❌ No | ✅ Yes |
+| **Bundle Size** | 🟢 ~2KB | 🟢 Tiny | 🔴 ~200KB | 🟢 Tiny |
+| **Component Library** | ⚠️ Minimal (2) | ❌ None | ✅ Full (50+) | ✅ Copy/paste (40+) |
+| **Use Case** | Brand consistency | Rapid prototyping | Full design system | Component library |
+
+**[See detailed comparison →](./docs/comparison.md)**
+
 What it does:
 
 - Validates brand tokens (space, radius, color with dark/light variants)
@@ -407,9 +419,27 @@ The `ignorePaths` option uses [picomatch](https://github.com/micromatch/picomatc
 - `@brandplan/eslint-plugin` - ESLint rules for enforcement
 - `brandplan` - CLI for scaffolding and building
 
+## Documentation
+
+- **[Migration Guide](./docs/migration-guide.md)** - Migrate from vanilla Tailwind to BrandPlan
+- **[API Reference](./docs/api-reference.md)** - Complete API documentation
+- **[Troubleshooting](./docs/troubleshooting.md)** - Common issues and solutions
+- **[Comparison Guide](./docs/comparison.md)** - BrandPlan vs alternatives
+- **[Changelog](./CHANGELOG.md)** - Version history and updates
+
 ## Examples
 
 See `examples/next-app` for a complete Next.js App Router integration.
+
+## Visuals & Assets
+
+**Note for contributors:** To improve discoverability, we plan to add:
+- Demo GIF showing ESLint enforcement in action
+- Before/After screenshots of brand consistency
+- Interactive playground at brandplan.dev (coming soon)
+- Video tutorials on YouTube
+
+See [GROWTH_PLAN.md](./GROWTH_PLAN.md) for our marketing strategy (private file).
 
 ## Contributing
 

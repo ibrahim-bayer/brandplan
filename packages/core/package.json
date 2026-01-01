@@ -35,9 +35,20 @@
   },
   "keywords": [
     "tailwindcss",
+    "tailwind-css",
+    "tailwind-v4",
     "design-tokens",
-    "brand",
-    "theme",
-    "css-variables"
+    "design-system",
+    "brand-guidelines",
+    "brand-consistency",
+    "css-variables",
+    "theme-generator",
+    "design-system-enforcement",
+    "brand-tokens",
+    "css-in-js",
+    "dark-mode",
+    "light-mode",
+    "theming",
+    "brandplan"
   ]
 }
